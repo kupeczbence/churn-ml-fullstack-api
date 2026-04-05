@@ -4,4 +4,6 @@ pandas
 scikit-learn
 joblib
 
-#elsőnek train_and_save_model.py-t kell futtatni, hogy létrehozza a model.joblib fájlt, majd a terminálba be kell írni a következő parancsot: uvicorn main:app --reload, hogy elindítsuk a FastAPI szervert. Ezután a megnyitjuk a http://localhost:8000, és ide navigálunk  http://127.0.0.1:8000/docs, ahol a Swagger UI segítségével tesztelhetjük az API-t (POST résznél TRY IT OUT -ra kattintva,megadjuk a json-be az adatokat, majd az executot kell megnyomni). docker run -p 8000:8000 churn-api
+#elsőnek train_and_save_model.py-t kell futtatni, hogy létrehozza a model.joblib fájlt, majd a terminálba be kell írni a következő parancsot: uvicorn app.main:app --reload, hogy elindítsuk a FastAPI szervert. Ezután a megnyitjuk a http://localhost:8000, és ide navigálunk  http://127.0.0.1:8000/docs, ahol a Swagger UI segítségével tesztelhetjük az API-t (POST résznél TRY IT OUT -ra kattintva,megadjuk a json-be az adatokat, majd az executot kell megnyomni). docker run -p 8000:8000 churn-api
+
+#Frontenddel indítás: elsőnek backend:train_and_save_model.py és uvicorn app.main:app --reload terminálban (..Deployment_MLOps> mappáig), majd frontend másik terminálban cd churn-frontend utánna pedig npm start és megnyílik a böngészőben (npx tailwindcss -i ./src/index.css -o ./public/output.css --watch)

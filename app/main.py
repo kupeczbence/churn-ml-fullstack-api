@@ -1,12 +1,24 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Customer Churn Prediction API")
 
-model = joblib.load("model/churn_model.joblib")
-feature_columns = joblib.load("model/feature_columns.joblib")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # devhez ok
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+model = joblib.load(os.path.join(BASE_DIR, "model", "churn_model.joblib"))
+feature_columns = joblib.load(os.path.join(BASE_DIR, "model", "feature_columns.joblib"))
 
 
 class Customer(BaseModel):
@@ -32,7 +44,9 @@ def predict(customer: Customer):
     data = data[feature_columns]
 
     proba = model.predict_proba(data)[0][1]
-    pred = model.predict(data)[0]
+
+    threshold = 0.3
+    pred = 1 if proba > threshold else 0
 
     return {
         "churn_probability": float(proba),
