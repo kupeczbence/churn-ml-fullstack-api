@@ -6,7 +6,8 @@ The system consists of a trained Machine Learning model, a FastAPI backend that 
 
 ## Live Demo
 
-- Backend API: https://churn-backend-prfc.onrender.com  
+- Frontend: https://churn-frontend2.onrender.com 
+- Backend: https://churn-backend-prfc.onrender.com  
 
 ## Model Overview
 
